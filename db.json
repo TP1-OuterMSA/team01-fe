@@ -1,0 +1,214 @@
+{
+  "waste": [
+    {
+      "id": "1",
+      "date": "2025-03-20",
+      "mealType": "breakfast",
+      "amount": "150"
+    },
+    {
+      "id": "2",
+      "date": "2025-03-20",
+      "mealType": "lunch",
+      "amount": "250"
+    },
+    {
+      "id": "3",
+      "date": "2025-03-20",
+      "mealType": "dinner",
+      "amount": "320"
+    },
+    {
+      "id": "4",
+      "date": "2025-03-21",
+      "mealType": "breakfast",
+      "amount": "120"
+    },
+    {
+      "id": "5",
+      "date": "2025-03-21",
+      "mealType": "lunch",
+      "amount": "230"
+    },
+    {
+      "id": "6",
+      "date": "2025-03-21",
+      "mealType": "dinner",
+      "amount": "290"
+    },
+    {
+      "id": "7",
+      "date": "2025-03-22",
+      "mealType": "breakfast",
+      "amount": "180"
+    },
+    {
+      "id": "8",
+      "date": "2025-03-22",
+      "mealType": "lunch",
+      "amount": "200"
+    },
+    {
+      "id": "9",
+      "date": "2025-03-22",
+      "mealType": "dinner",
+      "amount": "330"
+    },
+    {
+      "id": "10",
+      "date": "2025-03-23",
+      "mealType": "breakfast",
+      "amount": "110"
+    },
+    {
+      "id": "11",
+      "date": "2025-03-23",
+      "mealType": "lunch",
+      "amount": "270"
+    },
+    {
+      "id": "12",
+      "date": "2025-03-23",
+      "mealType": "dinner",
+      "amount": "280"
+    },
+    {
+      "id": "13",
+      "date": "2025-03-24",
+      "mealType": "breakfast",
+      "amount": "140"
+    },
+    {
+      "id": "14",
+      "date": "2025-03-24",
+      "mealType": "lunch",
+      "amount": "210"
+    },
+    {
+      "id": "15",
+      "date": "2025-03-24",
+      "mealType": "dinner",
+      "amount": "310"
+    },
+    {
+      "id": "16",
+      "date": "2025-03-25",
+      "mealType": "breakfast",
+      "amount": "130"
+    },
+    {
+      "id": "17",
+      "date": "2025-03-25",
+      "mealType": "lunch",
+      "amount": "190"
+    },
+    {
+      "id": "18",
+      "date": "2025-03-25",
+      "mealType": "dinner",
+      "amount": "340"
+    },
+    {
+      "id": "19",
+      "date": "2025-03-26",
+      "mealType": "breakfast",
+      "amount": "160"
+    },
+    {
+      "id": "20",
+      "date": "2025-03-26",
+      "mealType": "lunch",
+      "amount": "220"
+    },
+    {
+      "id": "21",
+      "date": "2025-03-26",
+      "mealType": "dinner",
+      "amount": "330"
+    },
+    {
+      "id": "df19",
+      "date": "2025-31-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "e0fa",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "0330",
+      "date": "2025-03-27",
+      "amount": "24",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "e18b",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "65c0",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "adb4",
+      "date": "2025-03-27",
+      "amount": "33",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "4720",
+      "date": "2025-03-27",
+      "amount": "99",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "47b3",
+      "date": "2025-03-27",
+      "amount": "11",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "241d",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "b05f",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "86b0",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "c4e2",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "dfb2",
+      "date": "2025-03-27",
+      "amount": "99",
+      "mealType": "breakfast"
+    },
+    {
+      "id": "92f8",
+      "date": "2025-03-27",
+      "amount": "123",
+      "mealType": "breakfast"
+    }
+  ]
+}
