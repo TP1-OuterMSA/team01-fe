@@ -15,7 +15,7 @@ const WeatherSection = ({ weather }: { weather: Weather }) => {
     SNOWY: "눈",
   };
 
-  const today = new Date().toLocaleDateString("ko-KR", {
+  const today = new Date(weather.date).toLocaleDateString("ko-KR", {
     year: "numeric",
     month: "long",
     day: "numeric",
