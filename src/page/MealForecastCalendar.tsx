@@ -1,7 +1,11 @@
 import { DateCalendar } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Typography, Card, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { ko } from "date-fns/locale";
+
 function MealForecastCalendar() {
   const navigate = useNavigate();
 
@@ -21,12 +25,17 @@ function MealForecastCalendar() {
               justifyContent: "center",
             }}
           >
-            <DateCalendar
-              onChange={(date) => {
-                const formatDate = format(date, "yyyy-MM-dd");
-                navigate(`/team01/meal-forecast?date=${formatDate}`);
-              }}
-            />
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              adapterLocale={ko}
+            >
+              <DateCalendar
+                onChange={(date) => {
+                  const formatDate = format(date, "yyyy-MM-dd");
+                  navigate(`/team01/meal-forecast?date=${formatDate}`);
+                }}
+              />
+            </LocalizationProvider>
           </Box>
         </Card>
       </div>
