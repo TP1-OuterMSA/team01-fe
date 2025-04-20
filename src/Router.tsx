@@ -8,11 +8,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/waste" element={<WastePage />} />
-        <Route
-          path="/team01/meal-forecast-calendar"
-          element={<MealForecastCalendar />}
-        />
-        <Route path="/team01/meal-forecast" element={<MealForecastPage />} />
+        <Route path="/team1" element={<MealForecastCalendar />} />
+        <Route path="/team1/meal-forecast" element={<MealForecastPage />} />
       </Routes>
     </BrowserRouter>
   );
