@@ -6,7 +6,7 @@ import { Weather } from "../../type/weather";
 const WeatherForecastSection = ({ weather }: { weather: Weather }) => {
   const [mealType, setMealType] = useState<MealType>("BREAKFAST");
 
-  const { data, loading, error } = useMealForecast({
+  const { data } = useMealForecast({
     date: weather.date,
     weather: weather.weather,
     mealType: mealType,
