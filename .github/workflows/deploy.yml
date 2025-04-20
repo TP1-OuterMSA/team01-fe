@@ -63,7 +63,7 @@ jobs:
           docker build -t ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }} .
           docker push ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }}
 
-      # Infra 저장소 업데이트 단계
+      # Infra 저장소 업데이트
       - name: Checkout infrastructure repository
         uses: actions/checkout@v3
         with:
