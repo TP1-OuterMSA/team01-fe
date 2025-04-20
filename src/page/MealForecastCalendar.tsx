@@ -5,9 +5,29 @@ import { Typography, Card, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
+import { useState } from "react";
+import WeatherSelectDialog from "../component/dialog/WeatherSelectDialog";
 
 function MealForecastCalendar() {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date);
+    setOpen(true);
+  };
+
+  const handleSubmit = (selectedWeather: string, date: Date) => {
+    const formatDate = format(date, "yyyy-MM-dd");
+    navigate(
+      `/team1/meal-forecast?date=${formatDate}&weather=${selectedWeather}`
+    );
+  };
 
   return (
     <div className="w-full flex flex-col justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -29,16 +49,18 @@ function MealForecastCalendar() {
               dateAdapter={AdapterDateFns}
               adapterLocale={ko}
             >
-              <DateCalendar
-                onChange={(date) => {
-                  const formatDate = format(date, "yyyy-MM-dd");
-                  navigate(`/team01/meal-forecast?date=${formatDate}`);
-                }}
-              />
+              <DateCalendar onChange={handleDateChange} />
             </LocalizationProvider>
           </Box>
         </Card>
       </div>
+
+      <WeatherSelectDialog
+        open={open}
+        handleClose={handleClose}
+        selectedDate={selectedDate}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }
