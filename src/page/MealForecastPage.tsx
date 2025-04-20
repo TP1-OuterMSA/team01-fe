@@ -3,7 +3,7 @@ import TitleHeader from "../component/common/TitleHeader";
 import MealForecastInputDialog from "../component/dialog/MealForecastInputDialog";
 import WeatherSection from "../component/mealForeacst/WearherSection";
 import WeatherForecastSection from "../component/mealForeacst/WeatherForecastSection";
-import { Weather } from "../type/weather";
+import { Weather, WeatherType } from "../type/weather";
 import { useSearchParams } from "react-router-dom";
 import { format } from "date-fns";
 const MealForecastPage = () => {
@@ -15,7 +15,7 @@ const MealForecastPage = () => {
     date: todayDate ?? format(new Date(), "yyyy-MM-dd"),
     mealType: "BREAKFAST",
     people: 100,
-    weather: "SUNNY",
+    weather: (params.get("weather") as WeatherType) ?? "SUNNY",
   };
   console.log(weather);
   return (
