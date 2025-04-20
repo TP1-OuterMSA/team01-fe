@@ -11,7 +11,7 @@ on:
 env:
   APP_ENV: development
   REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-  VITE_API_URL: ${{ secrets.SERVER_HOST }}
+  VITE_API_BASE_URL: ${{ secrets.SERVER_HOST }}
   APP_NAME: team01-fe
   ECR_REPOSITORY: 809691348554.dkr.ecr.ap-northeast-2.amazonaws.com/team01-fe-repository
   PUBLIC_URL: ${{ secrets.REACT_APP_BASE_PATH }}
