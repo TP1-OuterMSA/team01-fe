@@ -5,7 +5,7 @@ import MealForecastCalendar from "./page/MealForecastCalendar";
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/team1">
       <Routes>
         <Route path="/waste" element={<WastePage />} />
         <Route path="/team1" element={<MealForecastCalendar />} />
