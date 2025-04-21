@@ -60,7 +60,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           DOCKER_TAG: ${{ env.APP_ENV }}
         run: |
-          docker build -t ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }} .
+          docker build --build-arg VITE_API_BASE_URL=${{ secrets.SERVER_HOST }} --build-arg VITE_API_TIMEOUT=5000 -t ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }} .
           docker push ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }}
 
       # Infra 저장소 업데이트
