@@ -9,6 +9,7 @@ ARG VITE_API_TIMEOUT
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 ENV VITE_API_TIMEOUT=5000
 
+
 # 종속성 설치
 COPY package.json package-lock.json ./
 RUN npm ci
