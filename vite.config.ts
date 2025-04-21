@@ -6,5 +6,4 @@ import tailwindcss from "@tailwindcss/vite";
 // T
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/team1/'
 });
