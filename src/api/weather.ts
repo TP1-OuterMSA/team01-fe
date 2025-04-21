@@ -24,6 +24,7 @@ export const getPredict = async ({
   weather,
   mealType,
 }: WeatherRequest): Promise<Weather> => {
+  console.log( import.meta.env.VITE_API_BASE_URL );
   const response = await api_instance.get(
     `/people/predict?date=${date}&mealType=${mealType}&weather=${weather}`
   );
