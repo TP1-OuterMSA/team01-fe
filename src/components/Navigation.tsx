@@ -10,9 +10,10 @@ const Navigation = () => {
       </div>
       <div className="mt-6 px-4">
         <Link
-          to="/team1/meal-forecast"
+          to="/team1/"
           className={`flex items-center px-4 py-3 mb-3 rounded-lg transition-all duration-300 ${
-            location.pathname === "/team1/meal-forecast"
+            location.pathname === "/team1/meal-forecast" ||
+            location.pathname === "/team1/"
               ? "bg-blue-600 text-white font-medium"
               : "text-gray-300 hover:bg-gray-700 hover:text-white"
           }`}

@@ -26,7 +26,14 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/waste" element={<WastePage />} />
-        <Route path="/team1" element={<MealForecastCalendar />} />
+        <Route
+          path="/team1"
+          element={
+            <DashboardLayout>
+              <MealForecastCalendar />
+            </DashboardLayout>
+          }
+        />
         <Route
           path="/team1/meal-forecast"
           element={
