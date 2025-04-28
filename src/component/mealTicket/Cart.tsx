@@ -14,7 +14,7 @@ function Cart({ items, onRemoveItem, total }: CartProps) {
       <h2 className="text-lg font-medium text-gray-800 mb-4">장바구니</h2>
 
       {items.length === 0 ? (
-        <div className="text-center py-8">
+        <div className="text-center py-8 ">
           <p className="text-gray-500">장바구니가 비어있습니다</p>
         </div>
       ) : (
@@ -23,7 +23,9 @@ function Cart({ items, onRemoveItem, total }: CartProps) {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="flex justify-between py-3 border-b border-gray-100"
+                className={`flex justify-between py-2 pb-4 ${
+                  index === items.length - 1 ? "" : "border-b border-gray-100"
+                }`}
               >
                 <div>
                   <h3 className="font-medium text-gray-800">{item.name}</h3>
@@ -46,7 +48,7 @@ function Cart({ items, onRemoveItem, total }: CartProps) {
 
           <div className="border-t border-gray-200 pt-4">
             <div className="flex justify-between mb-6">
-              <span className="font-medium text-gray-800">총 결제금액</span>
+              <span className="font-semibold text-gray-800">총 결제금액</span>
               <span className="font-semibold text-blue-600">
                 {total.toLocaleString()}원
               </span>
