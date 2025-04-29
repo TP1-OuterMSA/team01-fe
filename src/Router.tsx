@@ -6,7 +6,6 @@ import MealTicket from "./page/MealTicket";
 import Fail from "./page/pay/Fail";
 import PayPage from "./page/pay/PayPage";
 import Success from "./page/pay/Success";
-import WastePage from "./page/WastePage";
 
 const DashboardLayout = () => {
   return (
