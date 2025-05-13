@@ -7,7 +7,7 @@ export interface Weather {
   date: string;
   mealType: MealType;
   people: number;
-  weather: WeatherType;
+  weatherStatus: WeatherType;
 }
 
 export interface WeatherRequest {

@@ -1,23 +1,32 @@
+import { format } from "date-fns";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import TitleHeader from "../component/common/TitleHeader";
 import MealForecastInputDialog from "../component/dialog/MealForecastInputDialog";
 import WeatherSection from "../component/mealForeacst/WearherSection";
 import WeatherForecastSection from "../component/mealForeacst/WeatherForecastSection";
-import { Weather, WeatherType } from "../type/weather";
-import { useSearchParams } from "react-router-dom";
-import { format } from "date-fns";
+import { useMealForecast } from "../hooks/mealForecast/useMealForecast";
+import { MealType } from "../type/chart";
+import { Weather } from "../type/weather";
 const MealForecastPage = () => {
   const [open, setOpen] = useState(false);
+  const [mealType, setMealType] = useState<MealType>("BREAKFAST");
+
   const [params] = useSearchParams();
   const todayDate = params.get("date");
+  const { data } = useMealForecast({
+    date: todayDate ?? format(new Date(), "yyyy-MM-dd"),
+    weather: "SUNNY",
+    mealType: mealType,
+  });
 
   const weather: Weather = {
     date: todayDate ?? format(new Date(), "yyyy-MM-dd"),
-    mealType: "BREAKFAST",
+    mealType: mealType,
     people: 100,
-    weather: (params.get("weather") as WeatherType) ?? "SUNNY",
+    weatherStatus: data?.weatherStatus ?? "SUNNY",
   };
-  console.log(weather);
+
   return (
     <div className="font-pretendard flex flex-col items-center mt-6 mx-40 ">
       <TitleHeader
@@ -31,7 +40,11 @@ const MealForecastPage = () => {
       />
       <MealForecastInputDialog open={open} onClose={() => setOpen(false)} />
       <WeatherSection weather={weather} />
-      <WeatherForecastSection weather={weather} />
+      <WeatherForecastSection
+        weather={weather}
+        mealType={mealType}
+        setMealType={setMealType}
+      />
     </div>
   );
 };

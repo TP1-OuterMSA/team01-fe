@@ -1,16 +1,23 @@
-import { useState } from "react";
 import MealTypeSelector from "../../chart/MealTypeSelector";
 import { useMealForecast } from "../../hooks/mealForecast/useMealForecast";
 import { MealType } from "../../type/chart";
 import { Weather } from "../../type/weather";
-const WeatherForecastSection = ({ weather }: { weather: Weather }) => {
-  const [mealType, setMealType] = useState<MealType>("BREAKFAST");
-
+const WeatherForecastSection = ({
+  weather,
+  mealType,
+  setMealType,
+}: {
+  weather: Weather;
+  mealType: MealType;
+  setMealType: (mealType: MealType) => void;
+}) => {
   const { data } = useMealForecast({
     date: weather.date,
-    weather: weather.weather,
+    weather: weather.weatherStatus,
     mealType: mealType,
   });
+
+  console.log("data", data);
 
   const handleMealTypeChange = (
     _event: React.MouseEvent<HTMLElement>,
