@@ -24,6 +24,13 @@ function MealForecastCalendar() {
 
   const handleSubmit = (date: Date) => {
     const formatDate = format(date, "yyyy-MM-dd");
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (date > today) {
+      alert("오늘 이후의 날짜는 선택할 수 없습니다.");
+      return;
+    }
     navigate(`/team1/meal-forecast?date=${formatDate}`);
   };
 
