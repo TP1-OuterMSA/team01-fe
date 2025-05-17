@@ -1,56 +1,119 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import QRCode from "react-qr-code";
+import { useState, useEffect } from "react";
 
 function Success() {
   const [searchParams] = useSearchParams();
+  const [qrValue, setQrValue] = useState("");
+
+  const orderId = searchParams.get("orderId");
+  const amount = searchParams.get("amount");
+
+  useEffect(() => {
+    const qrData = {
+      type: "meal_ticket",
+      orderId: orderId,
+      amount: amount,
+      timestamp: new Date().toISOString(),
+      ticketId: `TICKET-${orderId}-${Date.now()}`,
+    };
+    setQrValue(JSON.stringify(qrData));
+  }, [orderId, amount]);
 
   return (
     <>
-      <div className="box_section" style={{ width: "600px" }}>
+      <div
+        className="box_section"
+        style={{
+          width: "600px",
+          margin: "0 auto",
+          textAlign: "center",
+          padding: "30px",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          borderRadius: "8px",
+        }}
+      >
         <img
           width="100px"
           src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
+          alt="결제 완료"
+          style={{ marginBottom: "20px" }}
         />
         <h2>결제를 완료했어요</h2>
-        <div className="p-grid typography--p" style={{ marginTop: "50px" }}>
+        <div
+          className="p-grid typography--p"
+          style={{
+            marginTop: "50px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div className="p-grid-col text--left">
             <b>결제금액</b>
           </div>
           <div className="p-grid-col text--right" id="amount">
-            {`${Number(searchParams.get("amount")).toLocaleString()}원`}
+            {`${Number(amount).toLocaleString()}원`}
           </div>
         </div>
-        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
+        <div
+          className="p-grid typography--p"
+          style={{
+            marginTop: "10px",
+            marginBottom: "30px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div className="p-grid-col text--left">
             <b>주문번호</b>
           </div>
           <div className="p-grid-col text--right" id="orderId">
-            {`${searchParams.get("orderId")}`}
+            {orderId}
           </div>
         </div>
-        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
-          <div className="p-grid-col text--left">
-            <b>paymentKey</b>
-          </div>
-          <div
-            className="p-grid-col text--right"
-            id="paymentKey"
-            style={{ whiteSpace: "initial", width: "250px" }}
-          >
-            {`${searchParams.get("paymentKey")}`}
-          </div>
+
+        <div style={{ marginTop: "20px", marginBottom: "15px" }}>
+          <h3>식권 QR 코드</h3>
+          <p style={{ fontSize: "14px", color: "#666", marginBottom: "20px" }}>
+            아래 QR 코드를 매장에 제시하면 메뉴를 받을 수 있습니다
+          </p>
         </div>
-        <div className="p-grid-col">
-          <Link to="https://docs.tosspayments.com/guides/v2/payment-widget/integration">
-            <button className="button p-grid-col5">연동 문서</button>
-          </Link>
-          <Link to="https://discord.gg/A4fRFXQhRu">
-            <button
-              className="button p-grid-col5"
-              style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}
-            >
-              실시간 문의
-            </button>
-          </Link>
+
+        {/* QR 코드 표시 */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <QRCode
+            value={qrValue}
+            size={200}
+            level="H" // 오류 수정 레벨 (L, M, Q, H)
+            bgColor="#FFFFFF"
+            fgColor="#000000"
+          />
+        </div>
+
+        {/* 사용 방법 설명 */}
+        <div
+          style={{
+            fontSize: "14px",
+            backgroundColor: "#f8f9fa",
+            padding: "15px",
+            borderRadius: "8px",
+            textAlign: "left",
+          }}
+        >
+          <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>
+            🍽️ 사용 방법
+          </p>
+          <ol style={{ margin: "0", paddingLeft: "20px" }}>
+            <li>매장 카운터에 방문하세요</li>
+            <li>QR 코드를 직원에게 보여주세요</li>
+            <li>식권이 확인되면 메뉴를 받으실 수 있습니다</li>
+          </ol>
         </div>
       </div>
     </>
