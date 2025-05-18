@@ -38,7 +38,7 @@ const Navigation = () => {
               d="M8.5 12v-.5m4 .5v-.5m4 .5V12"
             />
           </svg>
-          <span>식사 예측</span>
+          <span>식사 분석</span>
         </Link>
         <Link
           to="/team1/mealTicket"
@@ -66,6 +66,36 @@ const Navigation = () => {
             />
           </svg>
           <span>식권 관리</span>
+        </Link>
+        <Link
+          to="/team1/meal-predict"
+          className={`flex items-center px-4 py-3 mb-3 rounded-lg transition-all duration-300 ${
+            location.pathname === "/team1/meal-predict"
+              ? "bg-blue-600 text-white font-medium"
+              : "text-gray-300 hover:bg-gray-700 hover:text-white"
+          }`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 15a4 4 0 004 4h9a5 5 0 10-4.546-7.093"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8.5 12v-.5m4 .5v-.5m4 .5V12"
+            />
+          </svg>
+          <span>식사 예측</span>
         </Link>
       </div>
     </nav>
