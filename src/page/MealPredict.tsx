@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  LineChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
 } from "recharts";
+import useEvent from "../hooks/useEvent";
+import { EventAPI } from "../type/event";
 
 interface WeatherData {
   date: string;
@@ -18,15 +20,6 @@ interface WeatherData {
   icon: string;
   temperature: number;
   precipitation: number;
-}
-
-interface EventData {
-  id: number;
-  name: string;
-  date: string;
-  location: string;
-  attendees: number;
-  description: string;
 }
 
 interface MealPrediction {
@@ -44,7 +37,7 @@ const MealPredict: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedMeal, setSelectedMeal] = useState<string>("all");
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
-  const [events, setEvents] = useState<EventData[]>([]);
+  const [events, setEvents] = useState<EventAPI[]>([]);
   const [predictions, setPredictions] = useState<MealPrediction[]>([]);
 
   // Generate dates for next 5 days
@@ -57,7 +50,6 @@ const MealPredict: React.FC = () => {
       date.setDate(today.getDate() + i);
       dates.push(date.toISOString().split("T")[0]);
     }
-
     return dates;
   };
 
@@ -74,75 +66,57 @@ const MealPredict: React.FC = () => {
       precipitation: Math.floor(Math.random() * 80), // 0-80%
     }));
 
-    // Mock events data
-    const mockEvents: EventData[] = [
-      {
-        id: 1,
-        name: "대동제",
-        date: getDates()[1],
-        location: "인문캠퍼스 운동장",
-        attendees: 1500,
-        description: "연례 대학 축제",
-      },
-      {
-        id: 2,
-        name: "취업 박람회",
-        date: getDates()[2],
-        location: "본관 3층",
-        attendees: 800,
-        description: "기업 채용 설명회",
-      },
-      {
-        id: 3,
-        name: "학술대회",
-        date: getDates()[3],
-        location: "경상관",
-        attendees: 300,
-        description: "학술 컨퍼런스",
-      },
-    ];
+    // Fetch events data using useEvent hook
+    const fetchData = async () => {
+      const mockEvents = await useEvent();
+      return mockEvents;
+    };
 
-    // Generate predictions based on weather and events
-    const mockPredictions: MealPrediction[] = getDates().map((date) => {
-      const weather = mockWeather.find((w) => w.date === date);
-      const dayEvents = mockEvents.filter((e) => e.date === date);
+    fetchData().then((mockEvents) => {
+      // Generate predictions based on weather and events
+      const mockPredictions: MealPrediction[] = getDates().map((date) => {
+        const weather = mockWeather.find((w) => w.date === date);
+        const dayEvents = mockEvents.filter((e) => e.date === date);
 
-      // Base numbers
-      let baseBreakfast = 200 + Math.floor(Math.random() * 100);
-      let baseLunch = 500 + Math.floor(Math.random() * 200);
-      let baseDinner = 300 + Math.floor(Math.random() * 150);
+        // Base numbers
+        let baseBreakfast = 200 + Math.floor(Math.random() * 100);
+        let baseLunch = 500 + Math.floor(Math.random() * 200);
+        let baseDinner = 300 + Math.floor(Math.random() * 150);
 
-      // Adjust for weather
-      if (weather?.condition === "비") {
-        baseBreakfast = Math.floor(baseBreakfast * 0.8);
-        baseLunch = Math.floor(baseLunch * 0.9);
-        baseDinner = Math.floor(baseDinner * 0.85);
-      }
+        // Adjust for weather
+        if (weather?.condition === "비") {
+          baseBreakfast = Math.floor(baseBreakfast * 0.8);
+          baseLunch = Math.floor(baseLunch * 0.9);
+          baseDinner = Math.floor(baseDinner * 0.85);
+        }
 
-      // Adjust for events
-      if (dayEvents.length > 0) {
-        const eventImpact =
-          dayEvents.reduce((sum, event) => sum + event.attendees, 0) * 0.3;
-        baseLunch += Math.floor(eventImpact * 0.7);
-        baseDinner += Math.floor(eventImpact * 0.3);
-      }
+        // Adjust for events
+        if (dayEvents.length > 0) {
+          const eventImpact =
+            dayEvents.reduce((sum, event) => sum + event.people, 0) * 0.3;
+          baseLunch += Math.floor(eventImpact * 0.7);
+          baseDinner += Math.floor(eventImpact * 0.3);
+        }
 
-      return {
-        date,
-        breakfast: baseBreakfast,
-        lunch: baseLunch,
-        dinner: baseDinner,
-        totalStudents: baseBreakfast + baseLunch + baseDinner,
-        weather: weather?.condition || "정보 없음",
-        temperature: weather?.temperature || 0,
-        events: dayEvents.map((e) => e.name),
-      };
+        return {
+          date,
+          breakfast: baseBreakfast,
+          lunch: baseLunch,
+          dinner: baseDinner,
+          totalStudents: baseBreakfast + baseLunch + baseDinner,
+          weather: weather?.condition || "정보 없음",
+          temperature: weather?.temperature || 0,
+          events: dayEvents.map((e) => e.eventTitle),
+        };
+      });
+      setWeatherData(mockWeather);
+      mockEvents.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
+      setEvents(mockEvents);
+      setPredictions(mockPredictions);
+      setSelectedDate(getDates()[0]);
     });
-
-    setWeatherData(mockWeather);
-    setEvents(mockEvents);
-    setPredictions(mockPredictions);
-    setSelectedDate(getDates()[0]);
   }, []);
 
   // Format date for display (YYYY-MM-DD -> MM월 DD일)
@@ -216,29 +190,29 @@ const MealPredict: React.FC = () => {
               </p>
             ) : (
               <div className="space-y-4">
-                {events.map((event) => (
+                {events.map((event, index) => (
                   <div
-                    key={event.id}
+                    key={index}
                     className="border rounded-lg p-4 border-sky-500"
                   >
                     <div className="flex justify-between">
                       <h3 className="font-medium text-blue-700">
-                        {event.name}
+                        {event.eventTitle}
                       </h3>
                       <span className="text-gray-600">
                         {formatDate(event.date)} ({getDayOfWeek(event.date)})
                       </span>
                     </div>
-                    <p className="text-gray-600 mt-1">{event.location}</p>
-                    <p className="text-gray-500 text-sm mt-2">
+                    {/* <p className="text-gray-600 mt-1">{event.location}</p> */}
+                    {/* <p className="text-gray-500 text-sm mt-2">
                       {event.description}
-                    </p>
+                    </p> */}
                     <div className="flex justify-between mt-3">
                       <span className="text-gray-500 text-sm">
                         예상 참여인원
                       </span>
                       <span className="font-medium text-blue-700">
-                        {event.attendees.toLocaleString()}명
+                        {event.people.toLocaleString()}명
                       </span>
                     </div>
                   </div>
