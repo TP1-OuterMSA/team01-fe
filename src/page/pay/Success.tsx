@@ -1,13 +1,14 @@
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
-import { useState, useEffect } from "react";
-
+import { useSearchParams } from "react-router-dom";
+import usePay from "../../hooks/usePay";
 function Success() {
   const [searchParams] = useSearchParams();
   const [qrValue, setQrValue] = useState("");
 
   const orderId = searchParams.get("orderId");
   const amount = searchParams.get("amount");
+  const items = searchParams.get("items");
 
   useEffect(() => {
     const qrData = {
@@ -18,6 +19,9 @@ function Success() {
       ticketId: `TICKET-${orderId}-${Date.now()}`,
     };
     setQrValue(JSON.stringify(qrData));
+
+    // 결제 로그 전송
+    usePay(JSON.parse(items!));
   }, [orderId, amount]);
 
   return (

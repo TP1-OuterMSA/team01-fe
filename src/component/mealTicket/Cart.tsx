@@ -8,7 +8,6 @@ interface CartProps {
 
 function Cart({ items, onRemoveItem, total }: CartProps) {
   const navigate = useNavigate();
-
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
       <h2 className="text-lg font-medium text-gray-800 mb-4">장바구니</h2>
@@ -56,7 +55,9 @@ function Cart({ items, onRemoveItem, total }: CartProps) {
 
             <button
               onClick={() => {
-                navigate(`/team1/pay?value=${total}`);
+                navigate(
+                  `/team1/pay?value=${total}&items=${JSON.stringify(items)}`
+                );
               }}
               className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors"
             >
