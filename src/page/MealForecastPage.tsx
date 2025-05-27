@@ -19,11 +19,16 @@ const MealForecastPage = () => {
     mealType: mealType,
   });
 
+  console.log("data", data);
+
+  if (!data) {
+    return <div>데이터가 없습니다.</div>;
+  }
   const weather: Weather = {
     date: todayDate ?? format(new Date(), "yyyy-MM-dd"),
     mealType: mealType,
     people: 100,
-    weatherStatus: data?.weatherStatus ?? "SUNNY",
+    weather: data?.weather ?? "SUNNY",
   };
 
   return (

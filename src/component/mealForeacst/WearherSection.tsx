@@ -27,14 +27,14 @@ const WeatherSection = ({ weather }: { weather: Weather }) => {
       <div className="px-8 py-6 flex items-center">
         {/* 날씨 아이콘 섹션 */}
         <div className="bg-white bg-opacity-30 rounded-full p-5 mr-6 backdrop-blur-sm">
-          <div className="text-6xl">{weatherIcons[weather.weatherStatus]}</div>
+          <div className="text-6xl">{weatherIcons[weather.weather]}</div>
         </div>
 
         {/* 날씨 정보 섹션 */}
         <div className="flex flex-col text-white">
           <div className="flex items-center gap-3 mb-2">
             <h2 className="text-3xl font-bold">
-              {weatherInfo[weather.weatherStatus]}
+              {weatherInfo[weather.weather]}
             </h2>
           </div>
 
