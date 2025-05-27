@@ -28,4 +28,5 @@ export interface ActualPeopleResponse {
   predictPeople: number;
   atePeople: number;
   weatherStatus: WeatherType;
+  description: string;
 }

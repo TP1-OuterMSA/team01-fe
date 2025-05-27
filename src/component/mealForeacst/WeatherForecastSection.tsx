@@ -21,7 +21,7 @@ const WeatherForecastSection = ({
     date: weather.date,
     mealType: mealType,
   });
-
+  console.log(data);
   const handleMealTypeChange = (
     _event: React.MouseEvent<HTMLElement>,
     newMealType: MealType | null
@@ -89,6 +89,16 @@ const WeatherForecastSection = ({
             </span>
             <span>기준</span>
           </div>
+        </div>
+      </div>
+
+      {/* 예측 이유 */}
+      <div className="w-full flex flex-col items-center mt-8 bg-white p-6 rounded-lg shadow-md">
+        <span className="text-lg font-semibold text-gray-800 mb-4">
+          예측 근거 상세
+        </span>
+        <div className="text-sm text-gray-700 leading-relaxed text-center">
+          {data?.description}
         </div>
       </div>
     </div>
