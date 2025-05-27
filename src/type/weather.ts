@@ -16,3 +16,16 @@ export interface WeatherRequest {
   mealType: MealType;
   people?: number;
 }
+
+export interface ActualPeople {
+  date: string;
+  mealType: MealType;
+}
+
+export interface ActualPeopleResponse {
+  date: string;
+  mealType: MealType;
+  predictPeople: number;
+  atePeople: number;
+  weatherStatus: WeatherType;
+}
