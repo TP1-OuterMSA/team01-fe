@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QRCode from "react-qr-code";
 import { useSearchParams } from "react-router-dom";
 import usePay from "../../hooks/usePay";
 function Success() {
   const [searchParams] = useSearchParams();
   const [qrValue, setQrValue] = useState("");
+  const qrRef = useRef(null);
 
   const orderId = searchParams.get("orderId");
   const amount = searchParams.get("amount");
@@ -22,7 +23,48 @@ function Success() {
 
     // 결제 로그 전송
     usePay(JSON.parse(items!));
+    // 카카오 SDK 초기화
+    if (!(window as any).Kakao.isInitialized()) {
+      (window as any).Kakao.init(import.meta.env.VITE_KAKAO_APP_KEY);
+    }
   }, [orderId, amount]);
+
+  const shareOnKakao = () => {
+    if (!qrRef.current) return;
+    const svg = (qrRef.current as HTMLElement).querySelector("svg");
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgData], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+    const url = URL.createObjectURL(svgBlob);
+
+    const image = new Image();
+    image.src = url;
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext("2d");
+      if (!context) return;
+      context.drawImage(image, 0, 0);
+
+      const imageData = canvas.toDataURL("image/png");
+      // 카카오톡 공유하기
+      (window as any).Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: "QR 코드 공유",
+          description: "이 QR 코드를 사용하여 메뉴를 받을 수 있습니다.",
+          imageUrl: imageData, // 이미지 데이터 URL
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+      });
+    };
+  };
 
   return (
     <>
@@ -85,6 +127,7 @@ function Success() {
 
         {/* QR 코드 표시 */}
         <div
+          ref={qrRef}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -119,6 +162,17 @@ function Success() {
             <li>식권이 확인되면 메뉴를 받으실 수 있습니다</li>
           </ol>
         </div>
+        <button
+          className="mt-6 w-full bg-[#FEE500] cursor-pointer text-[#000000] py-3 px-6 rounded-lg font-medium hover:bg-[#FDD835] transition duration-200 flex items-center justify-center gap-2"
+          onClick={shareOnKakao}
+        >
+          <img
+            src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
+            alt="카카오톡 로고"
+            className="w-5 h-5"
+          />
+          카카오톡으로 공유하기
+        </button>
       </div>
     </>
   );
