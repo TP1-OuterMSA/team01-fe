@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - 'release'
-
+  workflow_dispatch:
 env:
   APP_ENV: development
   REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
