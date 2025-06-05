@@ -132,11 +132,9 @@ jobs:
           find . -name "init-page" -type d
 
       - name: Update image tag in Helm chart
-        env:
-          SHORT_SHA: ${{ env.SHORT_SHA }} 
         run: |
+          echo "SHORT_SHA=$SHORT_SHA"
           cd msa-infra-main/charts/services/${{ env.APP_NAME_2 }}
-          
           if [ -f values.yaml ]; then
             echo "values.yaml exists"
             cat values.yaml | head -10  # 파일 내용 일부 출력
