@@ -114,15 +114,6 @@ jobs:
           git diff-index --quiet HEAD || (git commit -m "Update ${{ secrets.APP_NAME }} image tag to sha-${{ env.SHORT_SHA }}" && git push)
 
   # Infra 저장소 업데이트 단계-2
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image-2
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          DOCKER_TAG: ${{ env.APP_ENV }}
-        run: |
-          docker build --build-arg VITE_API_BASE_URL=${{ secrets.SERVER_HOST_2 }} -t ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }}-main .
-          docker push ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }}-main
-
       - name: Checkout infrastructure repository2
         uses: actions/checkout@v3
         with:
