@@ -15,7 +15,7 @@ env:
   APP_NAME: team01-fe
   ECR_REPOSITORY: 809691348554.dkr.ecr.ap-northeast-2.amazonaws.com/team01-fe-repository
   PUBLIC_URL: ${{ secrets.REACT_APP_BASE_PATH }}
-  APP_NAME_2: init-page
+  APP_NAME_2: team01-fe
   
 permissions:
   id-token: write
