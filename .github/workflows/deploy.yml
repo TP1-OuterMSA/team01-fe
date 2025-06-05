@@ -140,7 +140,7 @@ jobs:
             cat values.yaml | head -10  # 파일 내용 일부 출력
           fi
           OLD_TAG=$(grep -oP 'tag: "\K[^"]+' values.yaml)
-          sed -i "s/tag: \".*\"/tag: \"sha-${{ env.SHORT_SHA }}-main\"/g" values.yaml
+          sed -i "s/tag: \".*\"/tag: \"sha-${SHORT_SHA}-main\"/g" values.yaml
           echo "Updated values.yaml content:"
           cat values.yaml
           if [ "$OLD_TAG" != "sha-${{ env.SHORT_SHA }}" ]; then
