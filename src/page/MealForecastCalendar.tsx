@@ -1,12 +1,11 @@
+import { Box, Card, Typography } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { Typography, Card, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { useState } from "react";
-import WeatherSelectDialog from "../component/dialog/WeatherSelectDialog";
+import { useNavigate } from "react-router-dom";
 
 function MealForecastCalendar() {
   const navigate = useNavigate();
@@ -19,14 +18,20 @@ function MealForecastCalendar() {
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
-    setOpen(true);
+    // setOpen(true);
+    handleSubmit(date);
   };
 
-  const handleSubmit = (selectedWeather: string, date: Date) => {
+  const handleSubmit = (date: Date) => {
     const formatDate = format(date, "yyyy-MM-dd");
-    navigate(
-      `/team1/meal-forecast?date=${formatDate}&weather=${selectedWeather}`
-    );
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (date > today) {
+      alert("오늘 이후의 날짜는 선택할 수 없습니다.");
+      return;
+    }
+    navigate(`/team1/meal-forecast?date=${formatDate}`);
   };
 
   return (
@@ -55,12 +60,12 @@ function MealForecastCalendar() {
         </Card>
       </div>
 
-      <WeatherSelectDialog
+      {/* <WeatherSelectDialog
         open={open}
         handleClose={handleClose}
         selectedDate={selectedDate}
         onSubmit={handleSubmit}
-      />
+      /> */}
     </div>
   );
 }

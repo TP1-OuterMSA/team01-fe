@@ -12,6 +12,7 @@ env:
   APP_ENV: development
   REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
   VITE_API_BASE_URL: ${{ secrets.SERVER_HOST }}
+  VITE_KAKAO_APP_KEY: ${{ secrets.VITE_KAKAO_APP_KEY }}
   APP_NAME: team01-fe
   ECR_REPOSITORY: 809691348554.dkr.ecr.ap-northeast-2.amazonaws.com/team01-fe-repository
   PUBLIC_URL: ${{ secrets.REACT_APP_BASE_PATH }}
@@ -65,7 +66,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           DOCKER_TAG: ${{ env.APP_ENV }}
         run: |
-          docker build --build-arg VITE_API_BASE_URL=${{ secrets.SERVER_HOST }} --build-arg VITE_API_TIMEOUT=5000 -t ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }} .
+          docker build --build-arg VITE_KAKAO_APP_KEY=${{ secrets.VITE_KAKAO_APP_KEY }} --build-arg VITE_API_BASE_URL=${{ secrets.SERVER_HOST }} --build-arg VITE_API_TIMEOUT=5000 -t ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }} .
           docker push ${{ env.ECR_REPOSITORY }}:sha-${{ env.SHORT_SHA }}
 
       # Infra 저장소 업데이트

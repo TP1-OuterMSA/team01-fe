@@ -1,4 +1,9 @@
-import { Weather, WeatherRequest } from "../type/weather";
+import {
+  ActualPeople,
+  ActualPeopleResponse,
+  Weather,
+  WeatherRequest,
+} from "../type/weather";
 import { api_instance } from "./instance";
 
 // 예상 식수 인원 입력
@@ -26,6 +31,17 @@ export const getPredict = async ({
 }: WeatherRequest): Promise<Weather> => {
   const response = await api_instance.get(
     `/people/predict?date=${date}&mealType=${mealType}&weather=${weather}`
+  );
+  return response.data;
+};
+
+// 실제 식수 인원 조회
+export const getActualPeople = async ({
+  date,
+  mealType,
+}: ActualPeople): Promise<ActualPeopleResponse> => {
+  const response = await api_instance.get(
+    `/people/compare?date=${date}&mealType=${mealType}`
   );
   return response.data;
 };

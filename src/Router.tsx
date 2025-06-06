@@ -6,6 +6,7 @@ import MealTicket from "./page/MealTicket";
 import Fail from "./page/pay/Fail";
 import PayPage from "./page/pay/PayPage";
 import Success from "./page/pay/Success";
+import MealPredict from "./page/MealPredict";
 
 const DashboardLayout = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
           <Route path="/team1/pay" element={<PayPage />} />
           <Route path="/team1/pay/success" element={<Success />} />
           <Route path="/team1/pay/fail" element={<Fail />} />
+          <Route path="/team1/meal-predict" element={<MealPredict />} />
         </Route>
       </Routes>
     </BrowserRouter>

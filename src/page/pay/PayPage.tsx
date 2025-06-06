@@ -15,6 +15,8 @@ function PayPage() {
     currency: "KRW",
     value: Number(params.get("value"))!,
   });
+
+  const [items] = useState(JSON.parse(params.get("items")!));
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
 
@@ -89,7 +91,10 @@ function PayPage() {
               await widgets!.requestPayment({
                 orderId: generateRandomString(), // 고유 주문 번호
                 orderName: "명지대 식권",
-                successUrl: window.location.origin + "/team1/pay/success",
+                successUrl:
+                  window.location.origin +
+                  "/team1/pay/success?items=" +
+                  JSON.stringify(items),
                 failUrl: window.location.origin + "/team1/pay/fail",
                 customerEmail: "customer123@gmail.com",
                 customerName: "김토스",
