@@ -4,20 +4,19 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function MealForecastCalendar() {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  // const [open, setOpen] = useState(false);
+  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   // setOpen(false);
+  // };
 
   const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
+    // setSelectedDate(date);
     // setOpen(true);
     handleSubmit(date);
   };
